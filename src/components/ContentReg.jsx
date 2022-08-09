@@ -7,7 +7,7 @@ export default class ContentReg extends Component {
   render() {
     return (
       <div>
-        <Home></Home>
+        {/* <Home></Home> */}
         {/* <Join></Join> */}
       </div>
     );

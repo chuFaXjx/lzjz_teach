@@ -112,73 +112,71 @@ function getItem(label, key, icon, children, type) {
 // 定义菜单数组
 const items = [
   getItem("组织管理", "sub1", <MailOutlined />, [
-    getItem(
-      "Item 1",
-      "g1",
-      null,
-      [getItem("Option 1", "1"), getItem("Option 2", "2")],
-      "group"
-    ),
-    getItem(
-      "Item 2",
-      "g2",
-      null,
-      [getItem("Option 3", "3"), getItem("Option 4", "4")],
-      "group"
-    ),
+    getItem("菜单权限管理", "1"),
+    getItem("角色管理", "2"),
+    getItem("部门管理", "3"),
   ]),
   getItem("职工管理", "sub2", <AppstoreOutlined />, [
-    getItem("Option 5", "5"),
-    getItem("Option 6", "6"),
-    getItem("Submenu", "sub3", null, [
-      getItem("Option 7", "7"),
-      getItem("Option 8", "8"),
-    ]),
+    getItem("教职工管理", "4"),
   ]),
   getItem("试题管理", "sub4", <SettingOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-    getItem("Option 11", "11"),
-    getItem("Option 12", "12"),
+    getItem("试卷管理", "5"),
+    getItem("题库管理", "6"),
+    getItem("试题类型管理", "7"),
   ]),
-  getItem("考试管理", "sub4", <SettingOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-    getItem("Option 11", "11"),
-    getItem("Option 12", "12"),
+  getItem("考试管理", "sub5", <SettingOutlined />, [
+    getItem("考试计划", "8"),
+    getItem("考务查询", "9"),
+    getItem("我的考务", "10"),
   ]),
-  getItem("成绩管理", "sub4", <SettingOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-    getItem("Option 11", "11"),
-    getItem("Option 12", "12"),
+  getItem("成绩管理", "sub6", <SettingOutlined />, [
+    getItem("成绩查询", "11"),
+    getItem("成绩录入", "12"),
+    getItem("统一录入", "13"),
   ]),
-  getItem("课表管理", "sub4", <SettingOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-    getItem("Option 11", "11"),
-    getItem("Option 12", "12"),
+  getItem("课表管理", "sub7", <SettingOutlined />, [
+    getItem("排课任务", "14"),
+    getItem("教师课表", "15"),
+    getItem("班级课表", "16"),
+    getItem("Option 12", "17"),
   ]),
-  getItem("教务管理", "sub4", <SettingOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-    getItem("Option 11", "11"),
-    getItem("Option 12", "12"),
+  getItem("教务管理", "sub8", <SettingOutlined />, [
+    getItem("Option 10", "18"),
+    getItem("Option 11", "19"),
+    getItem("Option 12", "20"),
+    getItem("Option 10", "21"),
+    getItem("Option 10", "22"),
+    getItem("Option 10", "23"),
+    getItem("Option 11", "24"),
+    getItem("Option 12", "25"),
   ]),
-  getItem("系统管理", "sub4", <SettingOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-    getItem("Option 11", "11"),
-    getItem("Option 12", "12"),
+  getItem("系统管理", "sub9", <SettingOutlined />, [
+    getItem("Option 9", "26"),
+    getItem("Option 10", "27"),
+    getItem("Option 11", "28"),
+    getItem("Option 12", "29"),
+    getItem("Option 11", "30"),
+    getItem("Option 12", "31"),
   ]),
-  getItem("其他", "sub4", <SettingOutlined />, [
-    getItem("Option 9", "9"),
-    getItem("Option 10", "10"),
-    getItem("Option 11", "11"),
-    getItem("Option 12", "12"),
+  getItem("其他", "sub10", <SettingOutlined />, [
+    getItem("Option 9", "32"),
+    getItem("Option 10", "33"),
+    getItem("Option 11", "34"),
   ]),
 ];
+
 // 定义rootSubmenuKeys，点击当前菜单展开，其余关闭
-const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
+const rootSubmenuKeys = [
+  "sub1",
+  "sub2",
+  "sub3",
+  "sub4",
+  "sub5",
+  "sub6",
+  "sub7",
+  "sub8",
+  "sub9",
+  "sub10",
+];
 
 export default Admin;
