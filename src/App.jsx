@@ -1,7 +1,12 @@
-import { useState } from "react";
-
+import React, { Component } from "react";
+import IndexRouter from "./router/IndexRouter";
 function App() {
-  return <div className="App"></div>;
+  return (
+    <div>
+      <IndexRouter></IndexRouter>
+    </div>
+    
+  );
 }
 
 export default App;
