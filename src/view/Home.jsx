@@ -11,8 +11,8 @@ import React, { useState } from "react";
 import Style from "../style/Admin.module.css";
 
 //引入右侧头部部分
-import HerderReg from "../composent/HerderReg";
-import ContentReg from "../composent/ContentReg";
+import HerderReg from "../components/HerderReg";
+import ContentReg from "../components/ContentReg";
 
 const { Header, Sider, Content } = Layout;
 
