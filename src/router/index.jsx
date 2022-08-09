@@ -61,16 +61,12 @@ const routes = [
     element: <Login />,
   },
   {
-    path: "/",
+    path: "/index",
     element: (
       <AuthComponent>
         <Home />
       </AuthComponent>
     ),
-  },
-  {
-    path: "/index",
-    element: <Home />,
     children: [
       // 组织管理
       {
