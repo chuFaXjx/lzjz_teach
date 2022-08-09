@@ -41,13 +41,13 @@ const Login = (props) => {
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
 
-    let res = await login(values);
-    // let res = obj;
+    // let res = await login(values);
+    let res = obj;
     console.log(res);
     if (res.code === 0) {
       message.success(res.msg);
       localStorage.setItem("REACT_ADMIN_TOKEN", obj.data.accessToken);
-      navigate("/");
+      navigate("/index");
     } else {
       message.error(res.msg);
     }
