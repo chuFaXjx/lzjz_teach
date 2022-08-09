@@ -19,7 +19,7 @@ const { Header, Sider, Content } = Layout;
 const Admin = () => {
   // 菜单的每一项绑定点击事件
   const onClick = (e) => {
-    console.log('click ', e);
+    console.log("click ", e);
   };
   const [collapsed, setCollapsed] = useState(false);
   //   console.log(collapsed, setCollapsed);

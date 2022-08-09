@@ -111,8 +111,6 @@ const HerderReg = () => {
                   />
                 }
               />
-              {/* admin */}
-              {/* <DownOutlined /> */}
             </Space>
           </a>
         </Dropdown>

@@ -1,9 +1,13 @@
 // 封装ajax
 import axios from "axios";
 
+// 导入进度条插件
+import useNProgress from "../hooks/useNprogress";
+const NProgress = useNProgress();
+
 // http://192.168.0.253:8091/sys/user/login
 //引入basurl公共变量
-const REACT_APP_BASEURL = 'http://192.168.0.253:8091'
+const REACT_APP_BASEURL = "http://192.168.0.253:8091";
 //引入element ui 库里面的弹出层
 const service = axios.create({
   baseURL: REACT_APP_BASEURL,
@@ -13,9 +17,11 @@ const service = axios.create({
 
 //添加请求拦截器 为了携带token
 service.interceptors.request.use(
+  // 开启进度条
+  NProgress.start(),
   function (config) {
     // console.log('请求拦截', config);
-    
+
     return config;
   },
   function (error) {
@@ -26,6 +32,8 @@ service.interceptors.request.use(
 
 // 添加响应拦截器
 service.interceptors.response.use(
+  // 关闭进度条
+  NProgress.done(),
   function (response) {
     console.log("响应拦截器", response);
 
