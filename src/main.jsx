@@ -1,10 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-// import Route  from './route';
+import { BrowserRouter } from "react-router-dom";
 // 引入antd样式
 import "antd/dist/antd.css";
 //全局css样式
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+// 将App组件标签渲染到index页面上的div上
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

@@ -8,11 +8,11 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
-import Style from "../style/Admin.module.css";
+import Style from "../../style/Admin.module.css";
 
 //引入右侧头部部分
-import HerderReg from "../components/HerderReg";
-import ContentReg from "../components/ContentReg";
+import HerderReg from "../../components/HerderReg";
+import ContentReg from "../../components/ContentReg";
 
 const { Header, Sider, Content } = Layout;
 
@@ -111,7 +111,7 @@ function getItem(label, key, icon, children, type) {
 }
 // 定义菜单数组
 const items = [
-  getItem("Navigation One", "sub1", <MailOutlined />, [
+  getItem("组织管理", "sub1", <MailOutlined />, [
     getItem(
       "Item 1",
       "g1",
@@ -127,7 +127,7 @@ const items = [
       "group"
     ),
   ]),
-  getItem("Navigation Two", "sub2", <AppstoreOutlined />, [
+  getItem("职工管理", "sub2", <AppstoreOutlined />, [
     getItem("Option 5", "5"),
     getItem("Option 6", "6"),
     getItem("Submenu", "sub3", null, [
@@ -135,7 +135,43 @@ const items = [
       getItem("Option 8", "8"),
     ]),
   ]),
-  getItem("Navigation Three", "sub4", <SettingOutlined />, [
+  getItem("试题管理", "sub4", <SettingOutlined />, [
+    getItem("Option 9", "9"),
+    getItem("Option 10", "10"),
+    getItem("Option 11", "11"),
+    getItem("Option 12", "12"),
+  ]),
+  getItem("考试管理", "sub4", <SettingOutlined />, [
+    getItem("Option 9", "9"),
+    getItem("Option 10", "10"),
+    getItem("Option 11", "11"),
+    getItem("Option 12", "12"),
+  ]),
+  getItem("成绩管理", "sub4", <SettingOutlined />, [
+    getItem("Option 9", "9"),
+    getItem("Option 10", "10"),
+    getItem("Option 11", "11"),
+    getItem("Option 12", "12"),
+  ]),
+  getItem("课表管理", "sub4", <SettingOutlined />, [
+    getItem("Option 9", "9"),
+    getItem("Option 10", "10"),
+    getItem("Option 11", "11"),
+    getItem("Option 12", "12"),
+  ]),
+  getItem("教务管理", "sub4", <SettingOutlined />, [
+    getItem("Option 9", "9"),
+    getItem("Option 10", "10"),
+    getItem("Option 11", "11"),
+    getItem("Option 12", "12"),
+  ]),
+  getItem("系统管理", "sub4", <SettingOutlined />, [
+    getItem("Option 9", "9"),
+    getItem("Option 10", "10"),
+    getItem("Option 11", "11"),
+    getItem("Option 12", "12"),
+  ]),
+  getItem("其他", "sub4", <SettingOutlined />, [
     getItem("Option 9", "9"),
     getItem("Option 10", "10"),
     getItem("Option 11", "11"),
