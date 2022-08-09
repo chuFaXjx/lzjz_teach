@@ -54,10 +54,19 @@ import FormConstruction from "../Page/Other/FormConstruction";
 import DocText from "../Page/Other/DocText";
 import SqlSearch from "../Page/Other/SqlSearch";
 
+import AuthComponent from "../components/login/AuthComponent";
 const routes = [
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/",
+    element: (
+      <AuthComponent>
+        <Home />
+      </AuthComponent>
+    ),
   },
   {
     path: "/index",

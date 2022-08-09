@@ -10,9 +10,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
+  // 登录页面跳转
+  const navigate = useNavigate();
   // loading状态
   const [isLoading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  //请求图片
+  const [imgurl, setImgurl] = useState(
+    "http://192.168.0.253:8091/sys/getVerify"
+  );
+  const updateImgurl = () => {
+    setImgurl((imgurl) => (imgurl += `?${Math.random()}`));
+  };
   // 登录请求
   const obj = {
     code: 0,
@@ -38,7 +46,7 @@ const Login = (props) => {
     console.log(res);
     if (res.code === 0) {
       message.success(res.msg);
-      localStorage.setItem("token", obj.data.accessToken);
+      localStorage.setItem("REACT_ADMIN_TOKEN", obj.data.accessToken);
       navigate("/");
     } else {
       message.error(res.msg);
@@ -109,14 +117,16 @@ const Login = (props) => {
               prefix={<MyIcon type="icon-yanzhengyanzhengma" />}
               type="captcha"
               placeholder="验证码"
+              suffix={
+                <img
+                  className="captchaPic"
+                  onClick={updateImgurl}
+                  src={imgurl}
+                  alt="验证码图片"
+                />
+              }
             />
           </Form.Item>
-
-          <img
-            className="captchaPic"
-            src="http://192.168.0.253:8091/sys/getVerify"
-            alt="验证码图片"
-          />
 
           <Form.Item>
             <Button
