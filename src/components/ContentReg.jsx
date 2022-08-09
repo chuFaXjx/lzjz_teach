@@ -1,17 +1,14 @@
 import React, { Component } from "react";
-import style from "../style/Content.css";
-import Home from './content/home'
-import Join  from './content/join'
+import { Outlet } from "react-router-dom";
+import Home from "./content/HomePage";
 
 export default class ContentReg extends Component {
   render() {
     return (
       <div>
+        <Outlet />
         <Home></Home>
-        {/* <Join></Join> */}
       </div>
     );
   }
 }
-
-

@@ -33,9 +33,9 @@ const Login = (props) => {
   const onFinish = async (values) => {
     console.log("Received values of form: ", values);
 
-    // let res = await login(values);
-    let res = obj;
-    // console.log(res);
+    let res = await login(values);
+    // let res = obj;
+    console.log(res);
     if (res.code === 0) {
       message.success(res.msg);
       localStorage.setItem("token", obj.data.accessToken);

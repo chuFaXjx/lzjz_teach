@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 // import ContentReg from "./ContentReg";
 
-// admin下啦菜单
+// admin下拉菜单
 const menu = (
   <Menu
     items={[
