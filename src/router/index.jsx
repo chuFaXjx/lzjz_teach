@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import Home from "../view/admin/Home";
 import Login from "../view/login/Login";
 import NotFound from "../view/NotFound";
@@ -61,6 +62,10 @@ const routes = [
     element: <Login />,
   },
   {
+    path: "/",
+    element: <Navigate to="/index" />,
+  },
+  {
     path: "/index",
     element: (
       <AuthComponent>
@@ -94,7 +99,7 @@ const routes = [
       },
       {
         path: "dlQuestionBank",
-        element: <QuestionBank  />,
+        element: <QuestionBank />,
       },
       {
         path: "dlQuestionType",
