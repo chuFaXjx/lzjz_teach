@@ -2,13 +2,9 @@
 import {
   MenuFoldOutlined, //以下切换图标
   MenuUnfoldOutlined,
-  AppstoreOutlined, //以下icon菜单图标
-  MailOutlined,
-  SettingOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
-const { SubMenu } = Menu;
-import React, { useState, useEffect } from "react";
+import { Layout, Menu, Tabs } from "antd";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router";
 import Style from "../../style/Admin.module.css";
 // 导入请求菜单列表数据的请求
@@ -20,6 +16,7 @@ import ContentReg from "../../components/ContentReg";
 
 const { Header, Sider, Content } = Layout;
 
+// 组件
 const Admin = () => {
   // 菜单所需属性
   function getItem(label, key, type, children) {
@@ -41,7 +38,6 @@ const Admin = () => {
   // 请求获取菜单列表
   async function lists() {
     const { data } = await menuList();
-    Setmenu(data.menus);
     const resMenu = renderMenu(data.menus);
     resMenu.map((item) => {
       if (item.children) {
@@ -164,6 +160,8 @@ const Admin = () => {
               <HerderReg></HerderReg>
             </div>
           </Header>
+          {/* tag标签 */}
+          <div>tag标签</div>
           {/* 右侧内容 */}
           <Content
             className="site-layout-background"

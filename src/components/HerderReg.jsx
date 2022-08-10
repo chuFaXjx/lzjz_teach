@@ -9,7 +9,6 @@ import { Avatar, Image, Dropdown, Menu, Space, Tooltip } from "antd";
 import React, { useState, useEffect } from "react";
 import { initFullScreen, enterFullScreen, exitFullScreen } from "../utils/full"; //全屏
 
-
 // admin下拉菜单
 const menu = (
   <Menu
@@ -71,9 +70,8 @@ const HerderReg = () => {
   };
   // 页面刷新事件
   function refreshPage() {
-    location.reload()
+    location.reload();
   }
-  // console.log("1", handle, switchCollapse, setCollapsed);
   return (
     <div style={{ display: "flex" }}>
       {/* 刷新页面部分 */}
