@@ -57,7 +57,7 @@ import SqlSearch from "../Page/Other/SqlSearch";
 import AuthComponent from "../components/login/AuthComponent";
 const routes = [
   {
-    path: "/login",
+    path: "/",
     element: <Login />,
   },
   {
