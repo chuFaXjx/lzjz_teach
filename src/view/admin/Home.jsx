@@ -8,6 +8,7 @@ import {
 } from "@ant-design/icons";
 import { Layout, Menu } from "antd";
 import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import Style from "../../style/Admin.module.css";
 
 //引入右侧头部部分
@@ -17,9 +18,12 @@ import ContentReg from "../../components/ContentReg";
 const { Header, Sider, Content } = Layout;
 
 const Admin = () => {
+  //使用namvgettaizxhaun路由
+  const navigate = useNavigate();
   // 菜单的每一项绑定点击事件
   const onClick = (e) => {
-    console.log("click ", e);
+    navigate(e.key);
+    // console.log("click ", e);
   };
   const [collapsed, setCollapsed] = useState(false);
   //   console.log(collapsed, setCollapsed);
@@ -48,7 +52,15 @@ const Admin = () => {
               color: "#fff",
             }}
           >
-            {collapsed ? "EMS" : "教务管理系统"}
+            {collapsed ? (
+              <img
+                style={{ width: "35px" }}
+                src="http://127.0.0.1:5173/src/assets/img/logo.png"
+                alt="图片"
+              />
+            ) : (
+              "教务管理系统"
+            )}
           </div>
           {/* 左侧菜单 */}
           <Menu
@@ -117,33 +129,33 @@ function getItem(label, key, icon, children, type) {
 // 定义菜单数组
 const items = [
   getItem("组织管理", "sub1", <MailOutlined />, [
-    getItem("菜单权限管理", "1"),
-    getItem("角色管理", "2"),
-    getItem("部门管理", "3"),
+    getItem("菜单权限管理", "menus"),
+    getItem("角色管理", "roles"),
+    getItem("部门管理", "depts"),
   ]),
   getItem("职工管理", "sub2", <AppstoreOutlined />, [
-    getItem("教职工管理", "4"),
+    getItem("教职工管理", "users"),
   ]),
   getItem("试题管理", "sub4", <SettingOutlined />, [
-    getItem("试卷管理", "5"),
-    getItem("题库管理", "6"),
-    getItem("试题类型管理", "7"),
+    getItem("试卷管理", "dlTest"),
+    getItem("题库管理", "dlQuestionBank"),
+    getItem("试题类型管理", "dlQuestionType"),
   ]),
   getItem("考试管理", "sub5", <SettingOutlined />, [
-    getItem("考试计划", "8"),
-    getItem("考务查询", "9"),
-    getItem("我的考务", "10"),
+    getItem("考试计划", "dlExamPlan"),
+    getItem("考务查询", "dlExamList"),
+    getItem("我的考务", "dlExamMyList"),
   ]),
   getItem("成绩管理", "sub6", <SettingOutlined />, [
-    getItem("成绩查询", "11"),
-    getItem("成绩录入", "12"),
-    getItem("统一录入", "13"),
+    getItem("成绩查询", "dlExamResult"),
+    getItem("成绩录入", "dlExamResultInput"),
+    getItem("统一录入", "dlExamResultUnifyInput"),
   ]),
   getItem("课表管理", "sub7", <SettingOutlined />, [
-    getItem("排课任务", "14"),
-    getItem("教师课表", "15"),
-    getItem("班级课表", "16"),
-    getItem("Option 12", "17"),
+    getItem("排课任务", "dlArrangingCourse"),
+    getItem("教师课表", "teacherTable"),
+    getItem("班级课表", "classTable"),
+    getItem("课间管理", "dlCourseTable"),
   ]),
   getItem("教务管理", "sub8", <SettingOutlined />, [
     getItem("Option 10", "18"),

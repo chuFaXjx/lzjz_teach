@@ -70,6 +70,7 @@ const routes = [
     element: (
       <AuthComponent>
         <Home />
+        {/*  <Navigate to="/homepage" /> */}
       </AuthComponent>
     ),
     children: [
