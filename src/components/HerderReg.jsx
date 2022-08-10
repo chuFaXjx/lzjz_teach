@@ -1,15 +1,14 @@
 import {
-  DownOutlined,
   UserOutlined,
   LogoutOutlined,
   FullscreenOutlined,
   FullscreenExitOutlined,
   SyncOutlined, //刷新图标
 } from "@ant-design/icons";
-import { Avatar, Image, Dropdown, Menu, Space, Tooltip, Card } from "antd";
-import React, { useState } from "react";
-import { FullScreen, useFullScreenHandle } from "react-full-screen";
-// import ContentReg from "./ContentReg";
+import { Avatar, Image, Dropdown, Menu, Space, Tooltip } from "antd";
+import React, { useState, useEffect } from "react";
+import { initFullScreen, enterFullScreen, exitFullScreen } from "../utils/full"; //全屏
+
 
 // admin下拉菜单
 const menu = (
@@ -50,13 +49,29 @@ const menu = (
 
 const HerderReg = () => {
   // 全屏事件
-  const [switchCollapse, setCollapsed] = useState(true);
-  const handle = useFullScreenHandle();
+  //定义一个变量，是否全屏
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  //监听是否全屏
+  const screenChange = (isFull) => {
+    console.log("是否全屏", isFull);
+    setIsFullScreen(isFull);
+  };
+  useEffect(() => {
+    //初始化
+    initFullScreen(screenChange);
+  });
+  const handleFullScreen = () => {
+    //全屏事件点击
+    if (isFullScreen) {
+      exitFullScreen();
+    } else {
+      enterFullScreen();
+    }
+    setIsFullScreen(!isFullScreen);
+  };
   // 页面刷新事件
   function refreshPage() {
-    // Windows.location.reload()
-    window.opener.location.reload();
-    // this.forceUpdate();
+    location.reload()
   }
   // console.log("1", handle, switchCollapse, setCollapsed);
   return (
@@ -66,35 +81,10 @@ const HerderReg = () => {
         <SyncOutlined onClick={refreshPage} />
       </div>
       {/* 全屏放大缩小部分 */}
-      <div style={{ marginRight: 10, fontSize: 16 }}>
-        <FullScreen
-          handle={handle}
-          onChange={setCollapsed}
-          style={{ background: "#ffffff" }}
-        >
-          <Tooltip title="全屏">
-            <FullscreenOutlined
-              onClick={() => {
-                // 点击设置full为true，接着调用handle的enter方法，进入全屏模式
-                setCollapsed(true);
-                handle.enter();
-              }}
-            />
-            {/* <APPS></APPS> */}
-          </Tooltip>
-          <Tooltip title="退出全屏">
-            <FullscreenExitOutlined
-              onClick={() => {
-                // 点击设置full为true，接着调用handle的enter方法，进入全屏模式
-                setCollapsed(false);
-                handle.exit();
-              }}
-            />
-          </Tooltip>
-          {/* <div>
-              <ContentReg />
-          </div> */}
-        </FullScreen>
+      <div onClick={handleFullScreen} style={{ marginRight: 10, fontSize: 16 }}>
+        <Tooltip title={isFullScreen ? "退出全屏" : "打开全屏"}>
+          {!isFullScreen ? <FullscreenOutlined /> : <FullscreenExitOutlined />}
+        </Tooltip>
       </div>
       {/* admin头像部分 */}
       <div>

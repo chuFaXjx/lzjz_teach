@@ -32,6 +32,7 @@ const Login = (props) => {
     },
     msg: "操作成功",
   };
+  console.log(obj);
   const setload = () => {
     setLoading((isLoading) => (isLoading = true));
     setTimeout(() => {
@@ -40,109 +41,114 @@ const Login = (props) => {
   };
   const onFinish = async (values) => {
     // console.log("Received values of form: ", values);
-
-    let { data } = await login(values);
-    // let res = obj;
-    console.log(data);
-    if (data.code === 0) {
-      message.success("登录成功");
-      localStorage.setItem("REACT_ADMIN_TOKEN", data.accessToken);
-      navigate("/index");
-    } else {
-      message.error(data.msg);
+    // let res = await login(values);
+    let res = obj;
+    console.log(res);
+    if (res.code === 0) {
+      message.success(res.msg);
+      localStorage.setItem("REACT_ADMIN_TOKEN", obj.data.accessToken);
+      let { data } = await login(values);
+      // let res = obj;
+      console.log(data);
+      if (data.code === 0) {
+        message.success("登录成功");
+        localStorage.setItem("REACT_ADMIN_TOKEN", data.accessToken);
+        navigate("/index");
+      } else {
+        message.error(data.msg);
+      }
+      return;
     }
-    return;
-  };
 
-  //创建自己的icon图标
-  const MyIcon = createFromIconfontCN({
-    scriptUrl: "//at.alicdn.com/t/c/font_3469015_vydueatp1pj.js", // 在 iconfont.cn 上生成
-  });
+    //创建自己的icon图标
+    const MyIcon = createFromIconfontCN({
+      scriptUrl: "//at.alicdn.com/t/c/font_3469015_vydueatp1pj.js", // 在 iconfont.cn 上生成
+    });
 
-  return (
-    <div className="formBox">
-      <div className="bgBox">
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{
-            remember: true,
-          }}
-          onFinish={onFinish}
-        >
-          <Form.Item>
-            <h1 style={{ margin: 0 }}>教务管理系统</h1>
-          </Form.Item>
-          <Form.Item
-            name="username"
-            rules={[
-              {
-                required: true,
-                message: "请输入用户名!",
-              },
-            ]}
+    return (
+      <div className="formBox">
+        <div className="bgBox">
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
           >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="用户名"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[
-              {
-                required: true,
-                message: "请输入密码!",
-              },
-            ]}
-          >
-            <Input
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="密码"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="captcha"
-            className="captchaInp"
-            rules={[
-              {
-                required: true,
-                message: "请输入密码!",
-              },
-            ]}
-          >
-            <Input
-              prefix={<MyIcon type="icon-yanzhengyanzhengma" />}
-              type="captcha"
-              placeholder="验证码"
-              suffix={
-                <img
-                  className="captchaPic"
-                  onClick={updateImgurl}
-                  src={imgurl}
-                  alt="验证码图片"
-                />
-              }
-            />
-          </Form.Item>
-
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button"
-              loading={isLoading}
-              onClick={setload}
+            <Form.Item>
+              <h1 style={{ margin: 0 }}>教务管理系统</h1>
+            </Form.Item>
+            <Form.Item
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: "请输入用户名!",
+                },
+              ]}
             >
-              登录
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
-    </div>
-  );
-};
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="用户名"
+              />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "请输入密码!",
+                },
+              ]}
+            >
+              <Input
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="密码"
+              />
+            </Form.Item>
 
+            <Form.Item
+              name="captcha"
+              className="captchaInp"
+              rules={[
+                {
+                  required: true,
+                  message: "请输入密码!",
+                },
+              ]}
+            >
+              <Input
+                prefix={<MyIcon type="icon-yanzhengyanzhengma" />}
+                type="captcha"
+                placeholder="验证码"
+                suffix={
+                  <img
+                    className="captchaPic"
+                    onClick={updateImgurl}
+                    src={imgurl}
+                    alt="验证码图片"
+                  />
+                }
+              />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                loading={isLoading}
+                onClick={setload}
+              >
+                登录
+              </Button>
+            </Form.Item>
+          </Form>
+        </div>
+      </div>
+    );
+  };
+};
 export default Login;
