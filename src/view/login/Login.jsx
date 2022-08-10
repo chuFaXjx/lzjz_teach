@@ -125,6 +125,7 @@ const Login = (props) => {
                 prefix={<MyIcon type="icon-yanzhengyanzhengma" />}
                 type="captcha"
                 placeholder="验证码"
+                hasFeedback
                 suffix={
                   <img
                     className="captchaPic"
