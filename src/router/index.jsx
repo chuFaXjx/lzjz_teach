@@ -58,7 +58,7 @@ import SqlSearch from "../Page/Other/SqlSearch";
 import AuthComponent from "../components/login/AuthComponent";
 const routes = [
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
   },
   {
@@ -70,7 +70,6 @@ const routes = [
     element: (
       <AuthComponent>
         <Home />
-        {/*  <Navigate to="/homepage" /> */}
       </AuthComponent>
     ),
     children: [
