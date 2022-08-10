@@ -39,17 +39,17 @@ const Login = (props) => {
     }, 3000);
   };
   const onFinish = async (values) => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
 
-    let res = await login(values);
+    let { data } = await login(values);
     // let res = obj;
-    console.log(res);
-    if (res.code === 0) {
-      message.success(res.msg);
-      localStorage.setItem("REACT_ADMIN_TOKEN", obj.data.accessToken);
-      navigate("/");
+    console.log(data);
+    if (data.code === 0) {
+      message.success("登录成功");
+      localStorage.setItem("REACT_ADMIN_TOKEN", data.accessToken);
+      navigate("/index");
     } else {
-      message.error(res.msg);
+      message.error(data.msg);
     }
     return;
   };

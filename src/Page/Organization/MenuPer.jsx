@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function MenuPer() {
   return (
-    <div>MenuPer</div>
+    <div>菜单权限管理</div>
   )
 }
 

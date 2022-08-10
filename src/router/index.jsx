@@ -13,7 +13,7 @@ import FacultyManagement from "../Page/Staff/FacultyManagement";
 // 导入试题管理组件
 import TestQuestion from "../Page/TestQuestion/TestQuestion";
 import TypeManagement from "../Page/TestQuestion/TypeManagement";
-// import QuestionBank from "../Page/TestQuestionMenu/QuestionBank";
+import QuestionBank from "../Page/TestQuestion/QuestionBank";
 
 // 导入考试管理组件
 import ExaminationInquiry from "../Page/Examination/ExaminationInquiry";
@@ -65,6 +65,7 @@ const routes = [
     element: (
       <AuthComponent>
         <Home />
+        {/*  <Navigate to="/homepage" /> */}
       </AuthComponent>
     ),
     children: [
@@ -93,7 +94,7 @@ const routes = [
       },
       {
         path: "dlQuestionBank",
-        // element: <QuestionBank  />,
+        element: <QuestionBank  />,
       },
       {
         path: "dlQuestionType",

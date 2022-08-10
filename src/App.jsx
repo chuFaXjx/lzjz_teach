@@ -6,8 +6,7 @@ import { Outlet, NavLink, useRoutes } from "react-router-dom";
 function App() {
   //根据路由表生成对应的路由规则
   const element = useRoutes(routes);
-  console.log(element);
-
+  // console.log(element);
   return (
     <div>
       {element}
