@@ -19,9 +19,11 @@ const service = axios.create({
 //添加请求拦截器 为了携带token
 service.interceptors.request.use(
   function (config) {
+    // console.log("请求拦截", config);
     // 开启进度条
     NProgress.start();
     if (!config.url.includes("/login")) {
+      // config.headers["AUTHORIZATION"] = "Bearer " + localStorage.getItem('token')
       config.headers.authorization = localStorage.getItem("REACT_ADMIN_TOKEN");
     }
     return config;
@@ -37,6 +39,7 @@ service.interceptors.response.use(
   function (response) {
     // 关闭进度条
     NProgress.done();
+    // console.log("响应拦截器", response);
     if (response.data.code !== 0) {
       message.error(response.data.msg);
       if (response.data.code == 403) {

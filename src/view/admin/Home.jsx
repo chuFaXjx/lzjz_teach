@@ -141,7 +141,7 @@ const Admin = () => {
             className="site-layout-background"
             style={{
               padding: 0,
-              backgroundColor: "#cda8f0",
+              backgroundColor: "#fff",
               display: "flex",
               justifyContent: "space-between",
             }}
@@ -169,6 +169,7 @@ const Admin = () => {
               margin: "24px 16px",
               padding: 24,
               minHeight: 280,
+              backgroundColor:"#fff"
             }}
           >
             <ContentReg></ContentReg>

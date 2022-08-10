@@ -3,11 +3,11 @@ import {
   UserOutlined,
   createFromIconfontCN,
 } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, message } from "antd";
+import { Button, Form, Input, message } from "antd";
 import "./login.css";
-import { login } from "../../api/login";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { login } from "../../api/login";
 
 const Login = (props) => {
   // 登录页面跳转
@@ -21,7 +21,7 @@ const Login = (props) => {
   const updateImgurl = () => {
     setImgurl((imgurl) => (imgurl += `?${Math.random()}`));
   };
-  // 登录请求
+
   const setload = () => {
     setLoading((isLoading) => (isLoading = true));
     setTimeout(() => {
@@ -81,6 +81,7 @@ const Login = (props) => {
                 message: "请输入密码!",
               },
             ]}
+            hasFeedback
           >
             <Input.Password
               prefix={<LockOutlined className="site-form-item-icon" />}
@@ -95,7 +96,7 @@ const Login = (props) => {
             rules={[
               {
                 required: true,
-                message: "请输入密码!",
+                message: "请输入验证码!",
               },
             ]}
           >
