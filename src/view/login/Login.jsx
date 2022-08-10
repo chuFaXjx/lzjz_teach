@@ -32,6 +32,7 @@ const Login = (props) => {
     },
     msg: "操作成功",
   };
+  console.log(obj);
   const setload = () => {
     setLoading((isLoading) => (isLoading = true));
     setTimeout(() => {
