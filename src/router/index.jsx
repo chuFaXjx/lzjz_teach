@@ -56,9 +56,13 @@ import DocText from "../Page/Other/DocText";
 import SqlSearch from "../Page/Other/SqlSearch";
 
 import AuthComponent from "../components/login/AuthComponent";
+
+// 导入头部下拉菜单相关页面
+import EditPassword from "../Page/headerPage/EditPassword";
+import User from "../Page/headerPage/User";
 const routes = [
   {
-    path: "/",
+    path: "/login",
     element: <Login />,
   },
   {
@@ -70,10 +74,19 @@ const routes = [
     element: (
       <AuthComponent>
         <Home />
-        {/*  <Navigate to="/homepage" /> */}
       </AuthComponent>
     ),
     children: [
+      //头部下拉框相关页面
+      {
+        path: "user",
+        element: <User />,
+      },
+      {
+        path: "editpassword",
+        element: <EditPassword />,
+      },
+      ,
       // 组织管理
       {
         path: "menus",
