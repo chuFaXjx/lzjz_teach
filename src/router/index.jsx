@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import Home from "../view/admin/Home";
 import Login from "../view/login/Login";
 import NotFound from "../view/NotFound";
@@ -13,7 +14,7 @@ import FacultyManagement from "../Page/Staff/FacultyManagement";
 // 导入试题管理组件
 import TestQuestion from "../Page/TestQuestion/TestQuestion";
 import TypeManagement from "../Page/TestQuestion/TypeManagement";
-// import QuestionBank from "../Page/TestQuestionMenu/QuestionBank";
+import QuestionBank from "../Page/TestQuestion/QuestionBank ";
 
 // 导入考试管理组件
 import ExaminationInquiry from "../Page/Examination/ExaminationInquiry";
@@ -61,6 +62,10 @@ const routes = [
     element: <Login />,
   },
   {
+    path: "/",
+    element: <Navigate to="/index" />,
+  },
+  {
     path: "/index",
     element: (
       <AuthComponent>
@@ -93,7 +98,7 @@ const routes = [
       },
       {
         path: "dlQuestionBank",
-        // element: <QuestionBank  />,
+        element: <QuestionBank />,
       },
       {
         path: "dlQuestionType",
