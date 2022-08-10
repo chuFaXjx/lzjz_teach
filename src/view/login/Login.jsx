@@ -22,16 +22,6 @@ const Login = (props) => {
     setImgurl((imgurl) => (imgurl += `?${Math.random()}`));
   };
   // 登录请求
-  const obj = {
-    code: 0,
-    data: {
-      accessToken: "82104ofK92nH08Ib17H9089LQ72Zu4T5#1",
-      id: "1",
-      phone: "13888888888",
-      username: "admin",
-    },
-    msg: "操作成功",
-  };
   const setload = () => {
     setLoading((isLoading) => (isLoading = true));
     setTimeout(() => {
@@ -39,17 +29,13 @@ const Login = (props) => {
     }, 3000);
   };
   const onFinish = async (values) => {
-    // console.log("Received values of form: ", values);
-
-    let { data } = await login(values);
-    // let res = obj;
-    console.log(data);
-    if (data.code === 0) {
+    let res = await login(values);
+    if (res.code === 0) {
       message.success("登录成功");
-      localStorage.setItem("REACT_ADMIN_TOKEN", data.accessToken);
+      localStorage.setItem("REACT_ADMIN_TOKEN", res.data.accessToken);
       navigate("/index");
     } else {
-      message.error(data.msg);
+      message.error(res.data.msg);
     }
     return;
   };
@@ -96,7 +82,7 @@ const Login = (props) => {
               },
             ]}
           >
-            <Input
+            <Input.Password
               prefix={<LockOutlined className="site-form-item-icon" />}
               type="password"
               placeholder="密码"
