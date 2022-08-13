@@ -17,8 +17,9 @@ const validateMessages = {
 // 将App组件标签渲染到index页面上的div上
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <ConfigProvider form={{ validateMessages }}>
+    <ConfigProvider  form={{ validateMessages }}>
       <App />
     </ConfigProvider>
   </BrowserRouter>
 );
+

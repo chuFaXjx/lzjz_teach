@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { user, editUser } from "../../api/user";
 import { Button, Form, Input, Switch, Radio } from "antd";
-import Style from "../../style/headerHomepage/user.module.css";
 
 const layout = {
   labelCol: {
@@ -13,15 +12,9 @@ const layout = {
 };
 
 export default function User() {
-  const [formData, SetFormData] = useState({
-    email: "xxxxxx@163.com",
-    id: "1",
-    phone: "13888888888",
-    realName: "爱糖宝",
-    sex: "2",
-    status: 1,
-    username: "admin",
-  });
+  const [formData, SetFormData] = useState({});
+  //生成表单实例 用来设置表单初始值
+  const [form] = Form.useForm();
   async function userForm() {
     let { data } = await user();
     let obj = {
@@ -34,6 +27,7 @@ export default function User() {
       username: data.username,
     };
     SetFormData(obj);
+    form.setFieldsValue(obj);
   }
 
   useEffect(() => {
@@ -54,6 +48,7 @@ export default function User() {
       name="nest-messages"
       onFinish={onFinish}
       initialValues={formData}
+      form={form}
     >
       <Form.Item
         name="username"
@@ -108,8 +103,8 @@ export default function User() {
 
       <Form.Item name="sex" label="单选框">
         <Radio.Group>
-          <Radio value="1">男</Radio>
-          <Radio value="2">女</Radio>
+          <Radio value={1}>男</Radio>
+          <Radio value={2}>女</Radio>
         </Radio.Group>
       </Form.Item>
 
