@@ -122,7 +122,6 @@ const HerderReg = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   //监听是否全屏
   const screenChange = (isFull) => {
-    console.log("是否全屏", isFull);
     setIsFullScreen(isFull);
   };
   useEffect(() => {
