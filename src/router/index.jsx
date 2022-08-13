@@ -60,6 +60,10 @@ import AuthComponent from "../components/login/AuthComponent";
 // 导入头部下拉菜单相关页面
 import EditPassword from "../Page/headerPage/EditPassword";
 import User from "../Page/headerPage/User";
+
+//试题管理--试卷管理(添加，编辑)
+import TestQue from "../Page/TestQuestion/Test/TestQue";
+
 const routes = [
   {
     path: "/login",
@@ -109,6 +113,11 @@ const routes = [
       {
         path: "dlTest",
         element: <TestQuestion />,
+      },
+      //试题管理--试卷管理(添加，编辑)
+      {
+        path: "testQue",
+        element: <TestQue />,
       },
       {
         path: "dlQuestionBank",
