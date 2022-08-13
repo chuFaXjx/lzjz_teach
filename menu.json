@@ -50,10 +50,13 @@
           "icon": "layui-icon-user",
           "id": "51",
           "orderNum": 1,
+          "perms": "",
           "pid": "0",
           "spread": true,
+          "target": "_self",
           "title": "组织管理",
-          "type": 1
+          "type": 1,
+          "url": ""
         },
         {
           "checked": false,
@@ -614,6 +617,36 @@
               "title": "接口管理",
               "type": 2,
               "url": "/doc.html"
+            },
+            {
+              "checked": false,
+              "children": [],
+              "icon": "layui-icon-rate",
+              "id": "1557968948345982978",
+              "orderNum": 111,
+              "perms": "",
+              "pid": "21",
+              "pidName": "其他",
+              "spread": true,
+              "target": "_self",
+              "title": "嘤嘤嘤",
+              "type": 1,
+              "url": ""
+            },
+            {
+              "checked": false,
+              "children": [],
+              "icon": "layui-icon-rate-half",
+              "id": "1557939052051714049",
+              "orderNum": 123,
+              "perms": "",
+              "pid": "21",
+              "pidName": "其他",
+              "spread": true,
+              "target": "_self",
+              "title": "hs",
+              "type": 1,
+              "url": ""
             }
           ],
           "icon": "layui-icon-list",

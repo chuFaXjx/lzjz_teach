@@ -33,7 +33,7 @@ const Login = (props) => {
     if (res.code === 0) {
       message.success("登录成功");
       localStorage.setItem("REACT_ADMIN_TOKEN", res.data.accessToken);
-      navigate("/index");
+      navigate("/");
     } else {
       message.error(res.data.msg);
     }

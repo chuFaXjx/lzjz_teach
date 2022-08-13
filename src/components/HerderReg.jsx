@@ -16,9 +16,10 @@ import {
   Tooltip,
   message,
   Modal,
+  Breadcrumb,
 } from "antd";
 import React, { useState, useEffect } from "react";
- //全屏
+//全屏
 import { initFullScreen, enterFullScreen, exitFullScreen } from "../utils/full";
 
 // admin下拉菜单
@@ -78,7 +79,9 @@ const HerderReg = () => {
             message.success("退出登录");
             localStorage.removeItem("REACT_ADMIN_TOKEN");
             // 退出登录页面跳转
-            navigate("/login");
+            setTimeout(() => {
+              navigate("/login");
+            }, 2000);
           },
         });
       };
@@ -122,7 +125,7 @@ const HerderReg = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   //监听是否全屏
   const screenChange = (isFull) => {
-    console.log("是否全屏", isFull);
+    // console.log("是否全屏", isFull);
     setIsFullScreen(isFull);
   };
   useEffect(() => {
@@ -143,7 +146,13 @@ const HerderReg = () => {
     location.reload();
   }
   return (
-    <div style={{ display: "flex",width:"150px",justifyContent:"space-between"}}>
+    <div
+      style={{
+        display: "flex",
+        width: "150px",
+        justifyContent: "space-between",
+      }}
+    >
       {/* 刷新页面部分 */}
       <div style={{ marginRight: 10, fontSize: 16 }}>
         <SyncOutlined onClick={refreshPage} />

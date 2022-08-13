@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import routes from "./router";
-import { Outlet, NavLink, useRoutes } from "react-router-dom";
+import { Outlet, useRoutes } from "react-router-dom";
 
 function App() {
   //根据路由表生成对应的路由规则

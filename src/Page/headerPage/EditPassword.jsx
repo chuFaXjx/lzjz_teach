@@ -1,7 +1,6 @@
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { editPwd } from "../../api/user";
-import React, { useState } from "react";
-const { Option } = Select;
+import React from "react";
 
 const formItemLayout = {
   labelCol: {
@@ -36,10 +35,15 @@ const tailFormItemLayout = {
 
 const EditPassword = () => {
   const [form] = Form.useForm();
-
+  //提交修改密码
   const onFinish = (values) => {
     console.log("Received values of form: ", values);
-    editPwd(values)
+    editPwd(values);
+    message.success("密码已更改请重新登录");
+    // 退出登录页面跳转
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
   };
 
   return (
@@ -48,10 +52,6 @@ const EditPassword = () => {
       form={form}
       name="register"
       onFinish={onFinish}
-      initialValues={{
-        residence: ["zhejiang", "hangzhou", "xihu"],
-        prefix: "86",
-      }}
       scrollToFirstError
     >
       {/* 原密码密码 */}
@@ -98,7 +98,6 @@ const EditPassword = () => {
               if (!value || getFieldValue("newPwd") === value) {
                 return Promise.resolve();
               }
-
               return Promise.reject(new Error("您输入的两个密码不匹配！"));
             },
           }),

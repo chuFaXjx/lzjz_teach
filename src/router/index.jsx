@@ -67,7 +67,7 @@ const routes = [
   },
   {
     path: "/",
-    element: <Navigate to="/index" />,
+    element: <Navigate to="/index/menus" />,
   },
   {
     path: "/index",
