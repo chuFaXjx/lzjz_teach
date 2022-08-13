@@ -19,7 +19,8 @@
     "react-full-screen": "^1.1.1",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
-    "react-simple-verify": "^1.0.11"
+    "react-simple-verify": "^1.0.11",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.18.10/xlsx-0.18.10.tgz"
   },
   "devDependencies": {
     "@types/react": "^18.0.15",

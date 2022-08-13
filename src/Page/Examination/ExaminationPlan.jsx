@@ -19,6 +19,7 @@ import {
 } from "antd";
 // 导入axios请求
 import { getExamPlan, deleteExamPlan } from "../../api/exam/examPlan";
+// 导出表格
 
 export default function ExaminationPlan() {
   // 表格表头的数据
@@ -28,7 +29,7 @@ export default function ExaminationPlan() {
       width: 35,
       dataIndex: "name",
       key: "name",
-      fixed: 'left',
+      fixed: "left",
       sorter: () => {},
     },
     {
@@ -70,7 +71,7 @@ export default function ExaminationPlan() {
       title: "操作",
       key: "operation",
       width: 50,
-      fixed: 'right',
+      fixed: "right",
       render: (_, record) => (
         <div>
           <Button
@@ -111,7 +112,6 @@ export default function ExaminationPlan() {
       ),
     },
   ];
-
   // 头部搜索框相关
   const { Search } = Input;
   const onSearch = (value) => console.log(value);
@@ -143,6 +143,8 @@ export default function ExaminationPlan() {
   async function exanPlan(page, limit) {
     const { data } = await getExamPlan({ page: page, limit: limit });
     Settotal(data.total);
+    console.log(data.records);
+    setList(data.records);
     data.records.map((item) => {
       item.key = item.id;
     });
@@ -199,6 +201,13 @@ export default function ExaminationPlan() {
     exanPlan(page, limit);
   };
 
+  //将要导出的数据存在state里
+  const [list, setList] = useState([
+    ["考试标题", "考试时间", "考试状态", "成绩编辑", "参考年级", "考试类型"],
+  ]);
+
+  function handleExcel() {}
+
   return (
     <>
       {/* 头部区域 */}
@@ -221,7 +230,11 @@ export default function ExaminationPlan() {
           >
             删除
           </Button>
-          <Button type="primary" style={{ marginLeft: "5px" }}>
+          <Button
+            onClick={handleExcel}
+            type="primary"
+            style={{ marginLeft: "5px" }}
+          >
             导出全部
           </Button>
         </div>
@@ -236,6 +249,7 @@ export default function ExaminationPlan() {
       {/* 表格和分页器区域 */}
       <ConfigProvider locale={zhCN}>
         <Table
+          id="TableToExport"
           rowSelection={rowSelection}
           pagination={false}
           columns={columns}

@@ -1,4 +1,4 @@
-// 成绩录入页面
+// 成绩查询页面
 import React, { useState, useEffect } from "react";
 import { Table, Button, Input, Space ,Pagination} from "antd";
 // 导入相关请求
