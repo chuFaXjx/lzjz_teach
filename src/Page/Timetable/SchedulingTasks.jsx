@@ -1,5 +1,5 @@
 //排课任务
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 // 引入antd中文包
 import zhCN from "antd/es/locale/zh_CN";
 import { QuestionCircleOutlined, PrinterFilled } from "@ant-design/icons";
@@ -205,6 +205,16 @@ export default function ExaminationPlan() {
   function handleExcel() {
     exportExcel(list, "考试计划.xlsx");
   }
+  const myTable = useRef(null);
+  // 点击打印
+  function handlePrint() {
+    console.log(myTable.current);
+    printJS({
+      printable: "TableToExport",
+      type: "html",
+      // header: '三味书屋',
+    });
+  }
 
   return (
     <>
@@ -237,6 +247,7 @@ export default function ExaminationPlan() {
           </Button>
           <Button
             icon={<PrinterFilled />}
+            onClick={handlePrint}
             style={{ marginLeft: "5px", width: "68.32px", height: "32px" }}
           ></Button>
         </div>
@@ -251,6 +262,7 @@ export default function ExaminationPlan() {
       {/* 表格和分页器区域 */}
       <ConfigProvider locale={zhCN}>
         <Table
+          ref={myTable}
           id="TableToExport"
           rowSelection={rowSelection}
           pagination={false}
