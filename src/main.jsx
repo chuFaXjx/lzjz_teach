@@ -14,6 +14,10 @@ const validateMessages = {
     email: "请输入正确的${label}地址",
   },
 };
+
+// 导入execl文件的js
+import "./utils/xlsx.core.min.js"
+
 // 将App组件标签渲染到index页面上的div上
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>

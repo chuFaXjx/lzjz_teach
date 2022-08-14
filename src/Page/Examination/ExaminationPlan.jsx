@@ -14,12 +14,12 @@ import {
   Modal,
   message,
   Drawer,
-  Badge,
   Descriptions,
 } from "antd";
 // 导入axios请求
 import { getExamPlan, deleteExamPlan } from "../../api/exam/examPlan";
 // 导出表格
+import { exportExcel } from "../../utils/xlsxall";
 
 export default function ExaminationPlan() {
   // 表格表头的数据
@@ -35,8 +35,8 @@ export default function ExaminationPlan() {
     {
       title: "考试时间",
       width: 45,
-      dataIndex: "time",
-      key: "time",
+      dataIndex: "timeStart",
+      key: "timeStart",
       sorter: () => {},
     },
     {
@@ -56,8 +56,8 @@ export default function ExaminationPlan() {
     {
       title: "参考年级",
       width: 35,
-      dataIndex: "gradeId",
-      key: "gradeId",
+      dataIndex: "classType",
+      key: "classType",
       sorter: () => {},
     },
     {
@@ -112,6 +112,13 @@ export default function ExaminationPlan() {
       ),
     },
   ];
+
+  //将要导出的数据存在state里
+  const [list, setList] = useState([
+    ["考试标题", "考试时间", "考试状态", "成绩编辑", "参考年级", "考试类型"],
+  ]);
+  const [aoa, setAoa] = useState([]);
+
   // 头部搜索框相关
   const { Search } = Input;
   const onSearch = (value) => console.log(value);
@@ -144,10 +151,18 @@ export default function ExaminationPlan() {
     const { data } = await getExamPlan({ page: page, limit: limit });
     Settotal(data.total);
     console.log(data.records);
-    setList(data.records);
     data.records.map((item) => {
       item.key = item.id;
+      aoa.push([
+        item.name,
+        item.timeStart + "" + item.timeEnd,
+        item.status,
+        item.resultInputStatus,
+        item.classType,
+        item.examType,
+      ]);
     });
+    setList(aoa);
     // 更新表单内容区域数据
     SetTableData(data.records);
   }
@@ -200,13 +215,10 @@ export default function ExaminationPlan() {
     // 重新渲染表格
     exanPlan(page, limit);
   };
-
-  //将要导出的数据存在state里
-  const [list, setList] = useState([
-    ["考试标题", "考试时间", "考试状态", "成绩编辑", "参考年级", "考试类型"],
-  ]);
-
-  function handleExcel() {}
+  // 点击全部导出
+  function handleExcel() {
+    exportExcel(list, "考试计划.xlsx");
+  }
 
   return (
     <>

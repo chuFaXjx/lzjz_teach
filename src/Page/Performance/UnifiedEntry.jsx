@@ -2,7 +2,15 @@
 import React, { useState, useEffect } from "react";
 // 引入antd中文包
 import zhCN from "antd/es/locale/zh_CN";
-import { Table, Button, Input, Space, Pagination, ConfigProvider } from "antd";
+import {
+  Table,
+  Button,
+  Input,
+  Space,
+  Pagination,
+  ConfigProvider,
+  Modal,
+} from "antd";
 // 导入相关请求
 import { inputList } from "../../api/score/tongyiluru";
 
@@ -42,7 +50,7 @@ export default function ExaminationPlan() {
       key: "operation",
       render: (_, record) => (
         <div>
-          <Button type="primary" size="small" onClick={() => {}}>
+          <Button type="primary" size="small" onClick={showModal}>
             成绩录入
           </Button>
         </div>
@@ -79,6 +87,25 @@ export default function ExaminationPlan() {
     // 重新渲染表格
     exanPlan(page, limit);
   };
+
+  // 删除模态框的开关
+  const [isOpen, setIsOpen] = useState(false);
+  // 点击头部删除按钮打开删除的模态框
+  function showModal() {
+    setIsOpen(true);
+  }
+  // 删除模态框点击取消的函数
+  function handleCancel() {
+    setIsOpen(false);
+  }
+  // 删除模态框点击确定按钮的函数（删除当前被选中的菜单）
+  async function handleOk() {
+    await deleteExamPlan(selectedRowKeys);
+    message.success("删除成功");
+    // 重新渲染表格
+    exanPlan(page, limit);
+    setIsOpen(false);
+  }
 
   return (
     <>
@@ -121,6 +148,22 @@ export default function ExaminationPlan() {
           showTotal={(total) => `共 ${total} 条`}
         />
       </ConfigProvider>
+      {/* 头部删除模态框 */}
+      <Modal
+        title={"成绩录入"}
+        centered={true}
+        width={300}
+        visible={isOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Button style={{ marginLeft: "30px" }} shape="round">
+          语文
+        </Button>
+        <Button style={{ marginLeft: "30px" }} shape="round">
+          数学
+        </Button>
+      </Modal>
     </>
   );
 }

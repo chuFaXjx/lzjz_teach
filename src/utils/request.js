@@ -56,4 +56,10 @@ service.interceptors.response.use(
   }
 );
 
+export const service2 = axios.create({
+  baseURL: "http://localhost:3000",
+  //请求超时时间
+  timeout: 1000 * 60 * 5,
+});
+
 export default service;
