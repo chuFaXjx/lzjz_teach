@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 // 引入antd中文包
 import zhCN from "antd/es/locale/zh_CN";
-import { QuestionCircleOutlined, CloseOutlined } from "@ant-design/icons";
+import { QuestionCircleOutlined, CloseOutlined ,PrinterFilled} from "@ant-design/icons";
 import {
   Table,
   Button,
@@ -219,6 +219,14 @@ export default function ExaminationPlan() {
   function handleExcel() {
     exportExcel(list, "考试计划.xlsx");
   }
+   // 点击打印
+   function handlePrint() {
+    printJS({
+      printable: "TableToExport",
+      type: "html",
+      // header: '三味书屋',
+    });
+  }
 
   return (
     <>
@@ -249,6 +257,12 @@ export default function ExaminationPlan() {
           >
             导出全部
           </Button>
+          
+          <Button
+            icon={<PrinterFilled />}
+            onClick={handlePrint}
+            style={{ marginLeft: "5px", width: "68.32px", height: "32px" }}
+          ></Button>
         </div>
         <Space style={{ marginLeft: "100px" }}>
           <Search

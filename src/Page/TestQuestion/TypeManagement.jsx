@@ -65,16 +65,20 @@ export default function TypeManagement() {
       title: "类型数据",
       key: "typeName",
       dataIndex: "typeName",
+      align:"center",
       render: (text) => <p>{text}</p>,
     },
     {
       title: "备注",
       key: "remark",
       dataIndex: "remark",
+      align:"center",
       render: (text) => <p>{text}</p>,
     },
     {
       title: "操作",
+      align:"center",
+      width:35,
       key: "",
       render: (_, record) => (
         <Space size="middle">

@@ -1,5 +1,7 @@
 //题库管理
+import "@wangeditor/editor/dist/css/style.css"; // 引入 css
 import React, { useEffect, useState } from "react";
+import { Editor, Toolbar } from "@wangeditor/editor-for-react";
 import {
   Button,
   Drawer,
@@ -10,29 +12,33 @@ import {
   Table,
   Space,
   message,
+  Pagination,
 } from "antd";
-import { QuestionBankList } from "../../api/QuestionAPI/QuestionBankAPI";
-// import { Editor } from 'react-draft-wysiwyg';
-// import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-//富文本编辑器
-// import { Editor } from "react-draft-wysiwyg";
-// import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import {
+  QuestionBankList,
+  QuestionBankDel,
+  QuestionBankInputLinkage,
+  QuestionBankInput,
+} from "../../api/QuestionAPI/QuestionBankAPI";
 
-const QuestionBank = (_, index) => {
+const QuestionBank = (props, ref) => {
+  // 定义总条数
+  const [total, setTotal] = useState(0);
+  // 定义第几页
+  const [page, setPage] = useState(1);
+  // 定义每页多少数据
+  const [limit, setLimit] = useState(10);
   // 进入既获取数据
   useEffect(() => {
     getTypeList();
   }, []);
 
-  // const [editorState, setEditorState] = useState({});
-
   // 获取展示数据
   async function getTypeList() {
     let res = await QuestionBankList();
-    console.log("res", res);
+    // console.log("res", res);
     let getRes = res.data.records;
-    console.log("getRes", getRes);
+    // console.log("getRes", getRes);
     getRes.map((item, index) => {
       item.key = item.id;
     });
@@ -43,35 +49,33 @@ const QuestionBank = (_, index) => {
   const [dataSource, setSource] = useState([]);
 
   //表单事件
-  const onFinish = (values) => {
+  async function onFinish(values) {
+    //QuestionBankInput()
+    // await QuestionBankList({
+    //   content: values.content,
+    //   gradeType: "",
+    //   limit: values.limit,
+    //   page: values.page,
+    //   questionType: null,
+    //   subjectId: "",
+    // });
     console.log("Success:", values);
-  };
+  }
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-  //删除时气泡确认框
-  const confirm = (e) => {
-    console.log(e);
-    message.success("已成功删除");
-  };
-  const cancel = (e) => {
-    console.log(e);
-    message.error("已取消删除");
-  };
+
   //是否抽屉
-  const [visible, setVisible] = useState(false); //决定是否打开抽屉
-  const showDrawer = () => {
-    setVisible(true);
+  const [addvisible, setAddVisible] = useState(false); //添加决定是否打开抽屉
+  const [editvisible, setEditVisible] = useState(false); //编辑决定是否打开抽屉
+  // 编辑
+  const editShowDrawer = () => {
+    setEditVisible(true);
   };
-  const onClose = () => {
-    setVisible(false);
+  const editonClose = () => {
+    setEditVisible(false);
   };
 
-  // 添加
-  const handelWysiwyg = () => {
-    console.log("富文本编辑器");
-    setVisible(true);
-  };
   // 数据源
   const columns = [
     {
@@ -85,12 +89,12 @@ const QuestionBank = (_, index) => {
       key: "",
       render: (_, record) => (
         <Space size="middle">
-          <Button type="primary" onClick={showDrawer}>
+          <Button type="primary" onClick={() => editShowDrawer(record)}>
             编辑
           </Button>
           <Popconfirm
             title="您确定要删除此任务吗？"
-            onConfirm={confirm}
+            onConfirm={() => handelDelete(record)}
             onCancel={cancel}
             okText="Yes"
             cancelText="No"
@@ -107,9 +111,87 @@ const QuestionBank = (_, index) => {
     },
   ];
 
-  // function onEditorStateChange(e) {
-  //   console.log(e);
-  // }
+  // 添加
+  const addhandelWysiwyg = () => {
+    console.log("富文本编辑器");
+    setAddVisible(true);
+  };
+  const addonClose = () => {
+    setAddVisible(false);
+  };
+
+  //删除时(气泡确认框)
+  async function handelDelete(record) {
+    await QuestionBankDel([record.id]);
+    message.success("已成功删除");
+    getTypeList();
+  }
+  const cancel = (e) => {
+    console.log(e);
+    message.error("已取消删除");
+  };
+
+  // 分页器
+  const onChangePag = (page, limit) => {
+    console.log("Page: ", page, limit);
+    setPage(page);
+    setLimit(limit);
+    getTypeList(page, limit);
+  };
+
+  //---------------------------------------------------------------
+  // 添加的富文本编辑器
+  // addeditor 实例
+  const [addeditor, setEditor] = useState(null); // JS 语法
+  // 编辑器内容
+  const [html, setHtml] = useState("<p>添加hello</p>");
+  // 模拟 ajax 请求，异步设置 html
+  useEffect(() => {
+    setTimeout(() => {
+      setHtml("<p>hello world</p>");
+    }, 1500);
+  }, []);
+  // 工具栏配置
+  const toolbarConfig = {}; // JS 语法
+  // 编辑器配置
+  const editorConfig = {
+    // JS 语法
+    placeholder: "请输入内容...",
+  };
+  // 及时销毁 addeditor ，重要！
+  useEffect(() => {
+    return () => {
+      if (addeditor == null) return;
+      addeditor.destroy();
+      setEditor(null);
+    };
+  }, [addeditor]);
+  // --------------------------------------------------------
+  // 编辑的富文本编辑器------------
+  const [editEditor, setEeditEditor] = useState(null); // JS 语法
+  // 编辑器内容
+  const [editHtml, setEditHtml] = useState("<p>编辑hello</p>");
+  // 模拟 ajax 请求，异步设置 editHtml
+  useEffect(() => {
+    setTimeout(() => {
+      setEditHtml("<p>hello world</p>");
+    }, 1500);
+  }, []);
+  // 工具栏配置
+  const toolbarConfigEdit = {}; // JS 语法
+  // 编辑器配置
+  const editorConfigEdit = {
+    // JS 语法
+    placeholder: "请输入内容...",
+  };
+  // 及时销毁 setEeditEditor ，重要！
+  useEffect(() => {
+    return () => {
+      if (editEditor == null) return;
+      editEditor.destroy();
+      setEeditEditor(null);
+    };
+  }, [editEditor]);
 
   return (
     <div style={{ display: "flex" }}>
@@ -140,12 +222,7 @@ const QuestionBank = (_, index) => {
               <Option value="3">Option 3</Option>
             </Select>
           </Form.Item>
-          <Form.Item
-          // wrapperCol={{
-          //   // offset: 8,
-          //   span: 16,
-          // }}
-          >
+          <Form.Item>
             <Button type="primary" htmlType="submit">
               确定
             </Button>
@@ -154,33 +231,101 @@ const QuestionBank = (_, index) => {
       </div>
       <div style={{ width: 700 }}>
         <Button
-          onClick={handelWysiwyg}
+          onClick={addhandelWysiwyg}
           type="primary"
           style={{ marginBottom: 10 }}
         >
           添加
         </Button>
-        <Table columns={columns} dataSource={dataSource} bordered />
+        <Table
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+          bordered
+        />
+        <Pagination
+          style={{ textAlign: "right" }}
+          total={total}
+          defaultCurrent={1}
+          showSizeChanger
+          showQuickJumper
+          hideOnSinglePage //只有一页时分页不显示
+          onChange={onChangePag}
+        />
       </div>
-      {/* 抽屉 */}
+      {/* 添加抽屉(含富文本编辑器) */}
       <Drawer
         title="Basic Drawer"
         placement="right"
-        onClose={onClose}
-        visible={visible}
+        onClose={addonClose}
+        visible={addvisible}
         width={700}
       >
-        <p>Some contents...</p>
         {/* 富文本编辑器 */}
-        {/* <Editor
-          editorState={editorState}
-          toolbarClassName="toolbarClassName"
-          wrapperClassName="wrapperClassName"
-          editorClassName="editorClassName"
-          onEditorStateChange={onEditorStateChange}
-        />
-        ; */}
+        <div style={{ border: "1px solid #ccc", zIndex: 100 }}>
+          <Toolbar
+            editor={addeditor}
+            defaultConfig={toolbarConfig}
+            mode="default"
+            style={{ borderBottom: "1px solid #ccc" }}
+          />
+          <Editor
+            defaultConfig={editorConfig}
+            value={html}
+            onCreated={setEditor}
+            onChange={(addeditor) => setHtml(addeditor.getHtml())}
+            mode="default"
+            style={{ height: "500px", overflowY: "hidden" }}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>{html}</div>
       </Drawer>
+      {/* 编辑抽屉(含富文本编辑器) */}
+      <Drawer
+        title="Basic Drawer"
+        placement="right"
+        onClose={editonClose}
+        visible={editvisible}
+        width={700}
+      >
+        {/* 编辑富文本编辑器上 */}
+        <div style={{ border: "1px solid #ccc", zIndex: 100 }}>
+          <Toolbar
+            editor={editEditor}
+            defaultConfig={toolbarConfigEdit}
+            mode="default"
+            style={{ borderBottom: "1px solid #ccc" }}
+          />
+          <Editor
+            defaultConfig={editorConfigEdit}
+            value={editHtml}
+            onCreated={setEeditEditor}
+            onChange={(editEditor) => setEditHtml(editEditor.getHtml())}
+            mode="default"
+            style={{ height: "350px", overflowY: "hidden" }}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>{editHtml}</div>
+        {/* 编辑富文本编辑器下 */}
+        <div style={{ border: "1px solid #ccc", zIndex: 100 }}>
+          <Toolbar
+            editor={editEditor}
+            defaultConfig={toolbarConfigEdit}
+            mode="default"
+            style={{ borderBottom: "1px solid #ccc" }}
+          />
+          <Editor
+            defaultConfig={editorConfigEdit}
+            value={editHtml}
+            onCreated={setEeditEditor}
+            onChange={(editEditor) => setEditHtml(editEditor.getHtml())}
+            mode="default"
+            style={{ height: "350px", overflowY: "hidden" }}
+          />
+        </div>
+        <div style={{ marginTop: "15px" }}>{editHtml}</div>
+      </Drawer>
+      <div></div>
     </div>
   );
 };

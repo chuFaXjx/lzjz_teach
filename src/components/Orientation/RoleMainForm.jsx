@@ -106,6 +106,7 @@ const RoleMainForm = (props) => {
   };
   const onCheck = (checkedKeys) => {
     console.log("onCheck", checkedKeys);
+    setRoleResID(IDarr)
   };
   console.log("@@@formData：", formData);
 
@@ -165,7 +166,6 @@ const RoleMainForm = (props) => {
                   onSelect={onSelect}
                   onCheck={onCheck}
                   treeData={treeData}
-                  checkStrictly={roleResID.length == 0 ? false : true}
                   defaultExpandAll={true} //是否自动展开父节点
                   defaultCheckedKeys={roleResID}
                   defaultSelectedKeys={roleResID}

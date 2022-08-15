@@ -15,6 +15,7 @@ import {
 import zhCN from "antd/es/locale/zh_CN";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PrinterFilled } from "@ant-design/icons";
 import {
   TestQuestionList,
   TestQuestionDel,
@@ -149,33 +150,43 @@ export default function TestQuestion() {
   ];
 
   //删除时气泡确认框
-  async function handleDelete(record){//表格内部删除
-    console.log("record.id",record.id);
-    await TestQuestionDel([record.id])
+  async function handleDelete(record) {
+    //表格内部删除
+    console.log("record.id", record.id);
+    await TestQuestionDel([record.id]);
     getTypeList(page, limit);
     message.success("已成功删除");
   }
   async function confirm() {
-    await TestQuestionDel(selectedRowKeys)
+    await TestQuestionDel(selectedRowKeys);
     getTypeList(page, limit);
     message.success("已成功删除");
-  };
+  }
   const cancel = (e) => {
     console.log(e);
     message.error("已取消删除");
   };
 
-    //Table表格选择框被选中的数组
-    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-    const onSelectChange = (selectedRowKeys, selectedRows) => {
-      console.log(selectedRowKeys, selectedRows);
-      setSelectedRowKeys(selectedRowKeys);
-    };
-    // 配置table表格的选择框(位置必须在下边)
-    const rowSelection = {
-      selectedRowKeys,
-      onChange: onSelectChange,
-    };
+  //Table表格选择框被选中的数组
+  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+  const onSelectChange = (selectedRowKeys, selectedRows) => {
+    console.log(selectedRowKeys, selectedRows);
+    setSelectedRowKeys(selectedRowKeys);
+  };
+  // 配置table表格的选择框(位置必须在下边)
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: onSelectChange,
+  };
+  // 点击打印
+  function handlePrint() {
+    // console.log(myTable.current);
+    printJS({
+      printable: "TableToExport",
+      type: "html",
+      // header: '三味书屋',
+    });
+  }
 
   return (
     <div>
@@ -202,6 +213,11 @@ export default function TestQuestion() {
               删除
             </Button>
           </Popconfirm>
+          <Button
+            icon={<PrinterFilled />}
+            onClick={handlePrint}
+            style={{ marginLeft: "5px", width: "61.8px", height: "32" }}
+          ></Button>
         </div>
         <div>
           <Space direction="vertical" style={{ marginBottom: 10 }}>
@@ -215,7 +231,13 @@ export default function TestQuestion() {
       </div>
       {/* 数据表格 */}
       <ConfigProvider locale={zhCN}>
-        <Table rowSelection={rowSelection} columns={columns} dataSource={dataSource} pagination={false} />
+        <Table
+          id="TableToExport"
+          rowSelection={rowSelection}
+          columns={columns}
+          dataSource={dataSource}
+          pagination={false}
+        />
         <Pagination
           style={{ textAlign: "right" }}
           total={total}
