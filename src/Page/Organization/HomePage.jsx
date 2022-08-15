@@ -8,10 +8,10 @@ import {
   Modal,
   DatePicker,
 } from "antd";
-import { PlusOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { PlusOutlined, ExclamationCircleOutlined,PrinterFilled } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 
-import DepsForm from "../../components/Orientation/DepsForm"
+import DepsForm from "../../components/Orientation/DepsForm";
 import { depList, delDept } from "../../api/deps";
 
 const { RangePicker } = DatePicker;
@@ -190,6 +190,15 @@ const RolMain = () => {
   const onOk = (value) => {
     console.log("onOk: ", value);
   };
+  // 点击打印
+  function handlePrint() {
+    // console.log(myTable.current);
+    printJS({
+      printable: "TableToExport",
+      type: "html",
+      // header: '三味书屋',
+    });
+  }
 
   return (
     <>
@@ -208,6 +217,12 @@ const RolMain = () => {
         >
           添加
         </Button>
+        <Button
+          icon={<PrinterFilled />}
+          onClick={handlePrint}
+          size="large"
+          style={{ marginLeft: "5px" }}
+        ></Button>
         <Drawer
           title={!add_edti ? "新增菜单" : "编辑菜单"}
           width={450}
@@ -234,6 +249,7 @@ const RolMain = () => {
 
       {tableList.length > 0 && (
         <Table
+          id="TableToExport"
           columns={columns}
           dataSource={tableList}
           pagination={false}
