@@ -42,7 +42,7 @@ const Tags = (props) => {
     <>
       {tags.map((item, index) => (
         <Tag
-          closable
+          closable={item.path == path ? false : true}
           onClick={() => To(item.path)}
           onClose={() => log(item)}
           key={item.path}
