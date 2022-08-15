@@ -14,6 +14,7 @@ import {
   PlusOutlined,
   ExclamationCircleOutlined,
   SearchOutlined,
+  PrinterFilled,
 } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 
@@ -198,6 +199,16 @@ const RolMain = () => {
     console.log("onOk: ", value);
   };
 
+  // 点击打印
+  function handlePrint() {
+    // console.log(myTable.current);
+    printJS({
+      printable: "TableToExport",
+      type: "html",
+      // header: '三味书屋',
+    });
+  }
+
   return (
     <>
       <Space
@@ -243,6 +254,11 @@ const RolMain = () => {
         >
           添加
         </Button>
+        <Button
+          icon={<PrinterFilled />}
+          onClick={handlePrint}
+          style={{ marginLeft: "5px", width: "87.98px", height: "40px" }}
+        ></Button>
         <Drawer
           title={!add_edti ? "新增菜单" : "编辑菜单"}
           width={450}
@@ -267,6 +283,7 @@ const RolMain = () => {
       </Space>
 
       <Table
+        id="TableToExport"
         columns={columns}
         dataSource={tableList}
         pagination={false}

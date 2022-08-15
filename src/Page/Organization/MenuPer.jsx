@@ -1,5 +1,5 @@
 import { Space, Table, Tag, Button, Drawer, message, Modal } from "antd";
-import { PlusOutlined, ExclamationCircleOutlined } from "@ant-design/icons";
+import { PlusOutlined, ExclamationCircleOutlined,PrinterFilled } from "@ant-design/icons";
 import React, { useState, useEffect } from "react";
 import MenuPerDeawer from "../../components/Orientation/MenuPerDeawer";
 import { allMenuList, delMenuItem } from "../../api/menu";
@@ -213,6 +213,16 @@ const App = () => {
     },
   ];
 
+  // 点击打印
+  function handlePrint() {
+    // console.log(myTable.current);
+    printJS({
+      printable: "TableToExport",
+      type: "html",
+      // header: '三味书屋',
+    });
+  }
+
   const [checkStrictly, setCheckStrictly] = useState(false);
   return (
     <>
@@ -231,6 +241,12 @@ const App = () => {
         >
           添加
         </Button>
+        <Button
+          icon={<PrinterFilled />}
+          onClick={handlePrint}
+          size="large"
+          style={{ marginLeft: "5px" }}
+        ></Button>
         <Drawer
           title={!add_edti ? "新增菜单" : "编辑菜单"}
           width={450}
@@ -255,6 +271,7 @@ const App = () => {
       </Space>
 
       <Table
+        id="TableToExport"
         columns={columns}
         // rowSelection={{ ...rowSelection, checkStrictly }}
         dataSource={tableList}
